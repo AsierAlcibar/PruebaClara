@@ -145,7 +145,7 @@
             // Deshabilitar todas las opciones después de elegir una
             buttons.forEach(btn => {
                 btn.disabled = true; // Deshabilitar los botones
-                btn.classList.add('cursor-not-allowed'); // Cambiar el cursor a no permitido
+                btn.classList.remove('hover:bg-blue-200');
             });
 
             if (selectedOption === correctAnswer) {
