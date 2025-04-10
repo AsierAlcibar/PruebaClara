@@ -33,7 +33,7 @@
             <p class="text-lg text-gray-700">Fallos: <span id="incorrect-count" class="font-semibold">0</span></p>
         </div>
 
-        <button onclick="loadQuestion()" class="bg-blue-500 text-white p-2 rounded-md mt-6">Siguiente Pregunta</button>
+        <button id="next-button" onclick="loadQuestion()" class="bg-blue-500 text-white p-2 rounded-md mt-6 hidden">Siguiente Pregunta</button>
     </div>
 
     <script>
@@ -126,7 +126,7 @@
                 const button = document.createElement('button');
                 button.textContent = option;
                 button.className = "w-full p-3 border rounded-md bg-blue-100 hover:bg-blue-200";
-                button.onclick = () => checkAnswer(option, currentQuestion.answer);
+                button.onclick = () => checkAnswer(button, option, currentQuestion.answer);
                 optionsContainer.appendChild(button);
             });
 
@@ -136,7 +136,20 @@
         }
 
         // Función para verificar la respuesta
-        function checkAnswer(selectedOption, correctAnswer) {
+        function checkAnswer(button, selectedOption, correctAnswer) {
+            const buttons = document.querySelectorAll('#options button');
+            // Deshabilitar todas las opciones después de elegir una
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedOption === correctAnswer) {
+                button.classList.add('bg-green-500', 'text-white');
+            } else {
+                button.classList.add('bg-red-500', 'text-white');
+            }
+
+            // Mostrar el botón de siguiente pregunta
+            document.getElementById('next-button').style.display = 'block';
+            
             const feedbackMessage = document.getElementById('feedback-message');
             const feedbackIcon = document.getElementById('feedback-icon');
             const correctCountElement = document.getElementById('correct-count');
