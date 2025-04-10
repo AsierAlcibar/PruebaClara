@@ -33,7 +33,7 @@
             <p class="text-lg text-gray-700">Fallos: <span id="incorrect-count" class="font-semibold">0</span></p>
         </div>
 
-        <button id="next-button" onclick="loadQuestion()" class="bg-blue-500 text-white p-2 rounded-md mt-6 hidden">Siguiente Pregunta</button>
+        <button id="next-button" onclick="loadQuestion()" class="bg-blue-500 text-white p-2 rounded-md mt-6 hidden mx-auto">Siguiente Pregunta</button>
     </div>
 
     <script>
@@ -85,6 +85,10 @@
 
         // Función para cargar una pregunta aleatoria
         function loadQuestion() {
+            //Ocultar botón de siguiente pregunta
+            document.getElementById('next-button').style.display = 'none';
+
+            
             if (index >= questions.length) {
                 // Ocultar el contenedor de preguntas
                 document.getElementById('question-container').innerHTML = `
@@ -139,12 +143,20 @@
         function checkAnswer(button, selectedOption, correctAnswer) {
             const buttons = document.querySelectorAll('#options button');
             // Deshabilitar todas las opciones después de elegir una
-            buttons.forEach(btn => btn.disabled = true);
+            buttons.forEach(btn => {
+                btn.disabled = true; // Deshabilitar los botones
+                btn.classList.add('cursor-not-allowed'); // Cambiar el cursor a no permitido
+            });
 
             if (selectedOption === correctAnswer) {
                 button.classList.add('bg-green-500', 'text-white');
             } else {
                 button.classList.add('bg-red-500', 'text-white');
+
+                const correctButton = Array.from(buttons).find(btn => btn.textContent === correctAnswer);
+                if (correctButton) {
+                    correctButton.classList.add('bg-green-500', 'text-white');
+                }
             }
 
             // Mostrar el botón de siguiente pregunta
