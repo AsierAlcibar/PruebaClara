@@ -86,8 +86,8 @@
         // Función para cargar una pregunta aleatoria
         function loadQuestion() {
             //Borra el estilo de la respuesta
-            feedbackMessage.classList.remove("text-green-500");
-            feedbackMessage.classList.remove("text-red-500");
+            document.getElementById('feedback-message').classList.remove("text-green-500");
+            document.getElementById('feedback-message').classList.remove("text-red-500");
             
             //Ocultar botón de siguiente pregunta
             document.getElementById('next-button').style.display = 'none';
